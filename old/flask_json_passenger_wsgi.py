@@ -6,8 +6,6 @@ app = Flask(__name__)
 FlaskJSON(app)
 
 # https://stackoverflow.com/questions/54272167/curl-3-unmatched-brace-in-url-position-1
-# https://www.section.io/engineering-education/integrating-external-apis-with-flask/
-# https://flask-json.readthedocs.io/en/latest/
 
 @app.route('/get_time')
 def get_time():
