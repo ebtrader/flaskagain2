@@ -5,10 +5,20 @@ from pathlib import Path
 def personal_workouts_function():
     s = requests.Session()
 
-    with open('peloton_username.txt') as h:
+    raw_path = r'C:\Users\Owner\OneDrive\Documents\Python'
+
+    formatted_path = raw_path.replace("\\", "/")
+
+    filepath = Path(formatted_path)
+
+    pwd_path = filepath / 'pwd.txt'
+
+    username_path = filepath / 'username.txt'
+
+    with open(username_path) as h:
         username = h.read()
     #
-    with open('peloton_pwd.txt') as i:
+    with open(pwd_path) as i:
         pwd = i.read()
 
     payload = {'username_or_email':username, 'password':pwd}
