@@ -1,7 +1,6 @@
 import requests
 import pandas as pd
 from pathlib import Path
-import datetime
 
 def personal_workouts_function():
     s = requests.Session()
@@ -11,22 +10,6 @@ def personal_workouts_function():
     #
     with open('peloton_pwd.txt') as i:
         pwd = i.read()
-
-    # raw_path = r'C:\Users\Owner\OneDrive\Documents\Python'
-    #
-    # formatted_path = raw_path.replace("\\", "/")
-    #
-    # filepath = Path(formatted_path)
-    #
-    # pwd_path = filepath / 'pwd.txt'
-    #
-    # username_path = filepath / 'username.txt'
-    #
-    # with open(username_path) as h:
-    #     username = h.read()
-    #
-    # with open(pwd_path) as i:
-    #     pwd = i.read()
 
     payload = {'username_or_email':username, 'password':pwd}
     s.post('https://api.onepeloton.com/auth/login', json=payload)
@@ -61,16 +44,7 @@ def personal_workouts_function():
         counter = counter + 1
 
     df.drop('ride', inplace=True, axis=1)
-
-    date_offset = pd.DateOffset(hours=5)
-    df['created_at'] = pd.to_datetime(df['created_at'], unit='s') - date_offset
-    df['end_time'] = pd.to_datetime(df['end_time'], unit='s') - date_offset
-    df['start_time'] = pd.to_datetime(df['start_time'], unit='s') - date_offset
-    df['created'] = pd.to_datetime(df['created'], unit='s') - date_offset
-    df['device_time_created_at'] = pd.to_datetime(df['device_time_created_at'], unit='s') - date_offset
     return df
-    # print(df)
-    # df.to_csv('peloton.csv')
 
 
 
