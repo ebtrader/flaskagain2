@@ -1,0 +1,35 @@
+go to individual_workout_detail.py
+
+go to 'summaries' df:
+
+    q_performance_graph = s.get('https://api.onepeloton.com/api/workout/6e5b75c0addd401ba0206cc834e75722/performance_graph?every_n=30').json()
+    # n=30 means split data into 30 second increments
+
+    print(q_performance_graph.keys())
+
+    print(q_performance_graph['segment_list'])
+
+    print('seconds since pedaling start:', q_performance_graph['seconds_since_pedaling_start'])
+    print(len(q_performance_graph['seconds_since_pedaling_start']))
+
+    print(q_performance_graph['average_summaries'])
+
+    print(pd.json_normalize(q_performance_graph['average_summaries']))
+
+    print(q_performance_graph['summaries'])
+
+    print(pd.json_normalize(q_performance_graph['summaries']))
+
+make that 'values' column into a list
+
+[{'display_name': 'Total Output', 'display_unit': 'kj', 'value': 89, 'slug': 'total_output'}, {'display_name': 'Distance', 'display_unit': 'mi', 'value': 4.64, 'slug': 'distance'}, {'display_name': 'Calories', 'display_unit': 'kcal', 'value': 118, 'slug': 'calories'}]
+   display_name display_unit   value          slug
+0  Total Output           kj   89.00  total_output
+1      Distance           mi    4.64      distance
+2      Calories         kcal  118.00      calories
+
+create a df with the column names from summaries 'display_name' column
+
+make that list a row in a df
+
+loop through each workout and add rows
