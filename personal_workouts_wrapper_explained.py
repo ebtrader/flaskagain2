@@ -69,14 +69,14 @@ def personal_workouts_function():
         pw_list.clear()                                                     # clear the list to populate with data from the next workout
         counter = counter + 1                                               # increment the counter for the next workout
 
-    df.drop('ride', inplace=True, axis=1)
+    df.drop('ride', inplace=True, axis=1)                                   # drop the ride since there was too much detail there
 
-    date_offset = pd.DateOffset(hours=5)
-    df['created_at'] = pd.to_datetime(df['created_at'], unit='s') - date_offset
-    df['end_time'] = pd.to_datetime(df['end_time'], unit='s') - date_offset
-    df['start_time'] = pd.to_datetime(df['start_time'], unit='s') - date_offset
-    df['created'] = pd.to_datetime(df['created'], unit='s') - date_offset
-    df['device_time_created_at'] = pd.to_datetime(df['device_time_created_at'], unit='s') - date_offset
+    date_offset = pd.DateOffset(hours=5)                                            # peloton EST is off by 5 hours
+    df['created_at'] = pd.to_datetime(df['created_at'], unit='s') - date_offset     # convert to datetime and subtract 5 hours
+    df['end_time'] = pd.to_datetime(df['end_time'], unit='s') - date_offset         # convert to datetime and subtract 5 hours
+    df['start_time'] = pd.to_datetime(df['start_time'], unit='s') - date_offset     # convert to datetime and subtract 5 hours
+    df['created'] = pd.to_datetime(df['created'], unit='s') - date_offset           # convert to datetime and subtract 5 hours
+    df['device_time_created_at'] = pd.to_datetime(df['device_time_created_at'], unit='s') - date_offset # convert to datetime and subtract 5 hours
     return df
     # print(df)
     # df.to_csv('peloton.csv')
